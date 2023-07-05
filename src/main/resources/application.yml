@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: Scrapper-App
+server:
+  port: 8096
+management:
+  endpoints:
+    web: 
+      exposure:
+        include: "*"
+media:
+  source:
+    youtube-url: https://www.youtube.com/results
