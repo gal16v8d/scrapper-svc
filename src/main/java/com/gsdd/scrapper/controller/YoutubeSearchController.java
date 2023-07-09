@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("api/ytsearch")
+@RequestMapping("api/yt/search")
 public class YoutubeSearchController {
 
   private final YoutubeService youtubeService;
@@ -21,9 +21,10 @@ public class YoutubeSearchController {
   @GetMapping("{channelName}")
   public ResponseEntity<Collection<YoutubeInfo>>
       getLatestInfo(@PathVariable("channelName") String channelName) {
-    List<YoutubeInfo> infoList = youtubeService.getLatestInfo(channelName);
+    var doc = youtubeService.getPageInfo(channelName);
+    List<YoutubeInfo> infoList = youtubeService.getLatestInfo(doc);
     if (infoList == null || infoList.isEmpty()) {
-      ResponseEntity.notFound().build();
+      return ResponseEntity.notFound().build();
     }
     return ResponseEntity.ok(infoList);
   }

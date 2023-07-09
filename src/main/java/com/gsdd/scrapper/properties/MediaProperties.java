@@ -7,7 +7,8 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 @ConfigurationProperties("media.source")
-public class YoutubeProperties {
+public class MediaProperties {
 
+  private String animeFlvUrl;
   private String youtubeUrl;
 }

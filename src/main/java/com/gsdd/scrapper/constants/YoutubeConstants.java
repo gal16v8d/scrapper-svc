@@ -1,18 +1,17 @@
 package com.gsdd.scrapper.constants;
 
-import java.util.Map;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public final class YoutubeConstants {
 
   public static final String EMPTY = "";
   public static final String EQUAL = "=";
-  public static final String MOZILLA = "Mozilla";
   public static final String SEARCH_QUERY = "search_query";
   public static final String SEMICOLON = ";";
   public static final String SCRIPT_NONCE = "script[nonce]";
+  public static final String YT_CACHE_INFO = "yt-info";
+  public static final String YT_CACHE_MAIN = "yt-main";
   public static final String YT_INITIAL_DATA = "var ytInitialData";
   public static final String YT_PAYLOAD_CONTENT = "content";
   public static final String YT_PAYLOAD_CONTENTS = "contents";
@@ -31,14 +30,5 @@ public final class YoutubeConstants {
   public static final String YT_PAYLOAD_VERTICAL_LR = "verticalListRenderer";
   public static final String YT_PAYLOAD_VIDEO_R = "videoRenderer";
   public static final String YT_PAYLOAD_VIEW_COUNT_T = "viewCountText";
-  public static final Map<String, String> BASIC_HTTP_HEADERS = Map.of(
-      "accept",
-      "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-      "sec-fetch-site",
-      "none",
-      "sec-fetch-mode",
-      "navigate",
-      "accept-language",
-      "en-GB,en-US;q=0.9,en;q=0.8");
 
 }

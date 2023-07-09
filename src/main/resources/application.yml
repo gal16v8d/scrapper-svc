@@ -10,4 +10,5 @@ management:
         include: "*"
 media:
   source:
+    anime-flv-url: https://www3.animeflv.net/
     youtube-url: https://www.youtube.com/results
