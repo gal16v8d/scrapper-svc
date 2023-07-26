@@ -80,7 +80,7 @@ public class AnimeflvServiceImpl implements AnimeflvService {
     log.info("latest adds -> {}", data);
     return data;
   }
-  
+
   private LatestReleases toRelease(Element element) {
     return LatestReleases.builder()
         .name(element.ownText().trim())

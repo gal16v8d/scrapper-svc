@@ -1,6 +1,6 @@
 package com.gsdd.scrapper.services;
 
-import com.gsdd.scrapper.model.YoutubeInfo;
+import com.gsdd.scrapper.model.yt.YoutubeInfo;
 import java.util.List;
 import org.jsoup.nodes.Document;
 

@@ -1,4 +1,4 @@
-package com.gsdd.scrapper.model;
+package com.gsdd.scrapper.model.yt;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -3,7 +3,7 @@ package com.gsdd.scrapper.services.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gsdd.scrapper.constants.ScrapperConstants;
 import com.gsdd.scrapper.constants.YoutubeConstants;
-import com.gsdd.scrapper.model.YoutubeInfo;
+import com.gsdd.scrapper.model.yt.YoutubeInfo;
 import com.gsdd.scrapper.properties.MediaProperties;
 import com.gsdd.scrapper.services.YoutubeService;
 import java.io.IOException;

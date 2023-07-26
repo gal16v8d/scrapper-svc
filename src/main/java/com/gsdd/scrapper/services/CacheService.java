@@ -2,5 +2,7 @@ package com.gsdd.scrapper.services;
 
 public interface CacheService {
 
-  void clearCache();
+  void clearSmallCache();
+  
+  void clearHeavyCache();
 }

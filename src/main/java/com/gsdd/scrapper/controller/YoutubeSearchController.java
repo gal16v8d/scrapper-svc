@@ -1,6 +1,6 @@
 package com.gsdd.scrapper.controller;
 
-import com.gsdd.scrapper.model.YoutubeInfo;
+import com.gsdd.scrapper.model.yt.YoutubeInfo;
 import com.gsdd.scrapper.services.YoutubeService;
 import java.util.Collection;
 import java.util.List;

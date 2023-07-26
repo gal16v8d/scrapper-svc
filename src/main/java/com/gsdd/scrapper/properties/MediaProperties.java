@@ -10,5 +10,6 @@ import org.springframework.stereotype.Component;
 public class MediaProperties {
 
   private String animeFlvUrl;
+  private String animePlanetUrl;
   private String youtubeUrl;
 }

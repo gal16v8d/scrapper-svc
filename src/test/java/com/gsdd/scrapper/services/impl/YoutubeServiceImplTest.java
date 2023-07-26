@@ -8,6 +8,7 @@ import static org.mockito.Mockito.spy;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gsdd.scrapper.properties.MediaProperties;
+import com.gsdd.scrapper.services.YoutubeService;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import org.jsoup.Connection;
@@ -33,7 +34,7 @@ class YoutubeServiceImplTest {
   private MediaProperties mediaProperties;
   @Mock
   private Connection connection;
-  private YoutubeServiceImpl service;
+  private YoutubeService service;
 
   @BeforeEach
   void setUp() {
