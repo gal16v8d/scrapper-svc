@@ -1,15 +1,37 @@
-spring:
-  application:
-    name: Scrapper-App
-server:
-  port: 8096
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: false
+    registry-fetch-interval-seconds: 5
+    service-url:
+      default-zone: http://localhost:8761/eureka
+
 management:
   endpoints:
-    web: 
+    web:
       exposure:
         include: "*"
+
 media:
   source:
     anime-flv-url: https://www3.animeflv.net/
     anime-planet-url: https://www.anime-planet.com/anime/
     youtube-url: https://www.youtube.com/results
+
+server:
+  port: 8096
+
+service:
+  welcome:
+    message: Hello from local scrapper-app
+
+spring:
+  application:
+    name: scrapper-App
+  boot:
+    admin:
+      client:
+        url: http://localhost:8763
+  config:
+    import: "optional:configserver:http://localhost:8088"
