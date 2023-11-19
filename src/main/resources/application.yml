@@ -24,11 +24,11 @@ server:
 
 service:
   welcome:
-    message: Hello from local scrapper-app
+    message: Hello from local scrapper-svc
 
 spring:
   application:
-    name: scrapper-App
+    name: scrapper-svc
   boot:
     admin:
       client:
