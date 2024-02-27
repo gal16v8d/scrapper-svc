@@ -10,7 +10,6 @@ public final class ScrapperConstants {
   public static final String EMPTY = "";
   public static final String PARENTHESIS = "(";
   public static final String SPACE = " ";
-  
   // Connection data
   public static final String MOZILLA = "Mozilla";
   public static final Map<String, String> BASIC_HTTP_HEADERS = Map.of(

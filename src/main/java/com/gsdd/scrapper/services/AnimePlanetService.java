@@ -7,10 +7,10 @@ import org.jsoup.nodes.Document;
 public interface AnimePlanetService {
 
   Document getMainPageInfo();
-  
+
   Document getPageInfo(int page);
-  
+
   List<AnimeInfo> extractAnimeInfo(int page);
-  
+
   List<AnimeInfo> extractAllAnimeInfo(Document doc);
 }

@@ -12,7 +12,6 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @ToString
 public class AnimeInfo {
-  
   private String name;
   private String type;
   private String caps;
@@ -23,6 +22,5 @@ public class AnimeInfo {
   private String rank;
   private ZonedDateTime updatedOn;
   private List<String> tags;
-  private List<String> contentWarnings; 
-  
+  private List<String> contentWarnings;
 }

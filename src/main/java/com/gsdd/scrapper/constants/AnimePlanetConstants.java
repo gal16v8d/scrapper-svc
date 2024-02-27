@@ -21,7 +21,7 @@ public class AnimePlanetConstants {
   public static final String NODE_PAGES = "pagination aligncenter";
   public static final String QUERY_PAGE = "page";
   public static final String QUERY_ORDER = "order";
-  public static final String QUERY_ORDER_VALUE = "asc"; 
+  public static final String QUERY_ORDER_VALUE = "asc";
   public static final String QUERY_SORT = "sort";
   public static final String QUERY_SORT_VALUE = "title";
   public static final int SLEEP_ON_PAGE_ELEMENT = 7;
@@ -31,5 +31,4 @@ public class AnimePlanetConstants {
   public static final String TAGS_WARNING = "tags tags--plain";
   public static final String TITLE = "title";
   public static final String TYPE = "type";
-  
 }
