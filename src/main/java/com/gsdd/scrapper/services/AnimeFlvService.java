@@ -6,7 +6,7 @@ import com.gsdd.scrapper.model.flv.LatestReleases;
 import java.util.List;
 import org.jsoup.nodes.Document;
 
-public interface AnimeflvService {
+public interface AnimeFlvService {
 
   Document getPageInfo();
 

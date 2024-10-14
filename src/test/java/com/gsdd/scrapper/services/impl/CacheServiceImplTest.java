@@ -7,7 +7,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 
 import com.gsdd.scrapper.constants.AnimePlanetConstants;
-import com.gsdd.scrapper.constants.AnimeflvConstants;
+import com.gsdd.scrapper.constants.AnimeFlvConstants;
 import com.gsdd.scrapper.services.CacheService;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,23 +32,23 @@ class CacheServiceImplTest {
 
   @Test
   void testClearSmallCache(@Mock Cache cache) {
-    willReturn(List.of(AnimePlanetConstants.CACHE_MAIN_PAGE, AnimeflvConstants.CACHE_ADD))
+    willReturn(List.of(AnimePlanetConstants.CACHE_MAIN_PAGE, AnimeFlvConstants.CACHE_ADD))
         .given(cacheManager)
         .getCacheNames();
     willReturn(cache).given(cacheManager).getCache(anyString());
     service.clearSmallCache();
-    then(cacheManager).should().getCache(AnimeflvConstants.CACHE_ADD);
+    then(cacheManager).should().getCache(AnimeFlvConstants.CACHE_ADD);
     then(cacheManager).should(never()).getCache(AnimePlanetConstants.CACHE_MAIN_PAGE);
   }
 
   @Test
   void testClearHeavyCache(@Mock Cache cache) {
-    willReturn(List.of(AnimePlanetConstants.CACHE_MAIN_PAGE, AnimeflvConstants.CACHE_ADD))
+    willReturn(List.of(AnimePlanetConstants.CACHE_MAIN_PAGE, AnimeFlvConstants.CACHE_ADD))
         .given(cacheManager)
         .getCacheNames();
     willReturn(cache).given(cacheManager).getCache(anyString());
     service.clearHeavyCache();
-    then(cacheManager).should(never()).getCache(AnimeflvConstants.CACHE_ADD);
+    then(cacheManager).should(never()).getCache(AnimeFlvConstants.CACHE_ADD);
     then(cacheManager).should().getCache(AnimePlanetConstants.CACHE_MAIN_PAGE);
   }
 }

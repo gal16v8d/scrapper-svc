@@ -3,7 +3,7 @@ package com.gsdd.scrapper.constants;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public final class AnimeflvConstants {
+public final class AnimeFlvConstants {
 
   public static final String CACHE_ADD = "flv-add";
   public static final String CACHE_DETAILED_RELEASES = "flv-detailed-releases";

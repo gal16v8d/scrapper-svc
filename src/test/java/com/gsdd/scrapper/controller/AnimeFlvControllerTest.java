@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.gsdd.scrapper.model.flv.DetailedLatestReleases;
 import com.gsdd.scrapper.model.flv.LatestAdds;
 import com.gsdd.scrapper.model.flv.LatestReleases;
-import com.gsdd.scrapper.services.AnimeflvService;
+import com.gsdd.scrapper.services.AnimeFlvService;
 import java.util.List;
 import org.jsoup.nodes.Document;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @ExtendWith(MockitoExtension.class)
 @WebMvcTest(AnimeFlvController.class)
-class AnimeflvControllerTest {
+class AnimeFlvControllerTest {
 
   private static final String MOCK_EPISODE = "Episode 1";
   private static final String MOCK_NAME = "One Piece";
@@ -34,7 +34,7 @@ class AnimeflvControllerTest {
   @Autowired
   private MockMvc mvc;
   @MockBean
-  private AnimeflvService animeflvService;
+  private AnimeFlvService animeflvService;
 
   @Test
   void testGetLatestAdded(@Mock Document doc) throws Exception {

@@ -3,7 +3,7 @@ package com.gsdd.scrapper.controller;
 import com.gsdd.scrapper.model.flv.DetailedLatestReleases;
 import com.gsdd.scrapper.model.flv.LatestAdds;
 import com.gsdd.scrapper.model.flv.LatestReleases;
-import com.gsdd.scrapper.services.AnimeflvService;
+import com.gsdd.scrapper.services.AnimeFlvService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/flv/search")
 public class AnimeFlvController {
 
-  private final AnimeflvService animeflvService;
+  private final AnimeFlvService animeflvService;
 
   @GetMapping("added")
   public ResponseEntity<List<LatestAdds>> getLatestAdded() {

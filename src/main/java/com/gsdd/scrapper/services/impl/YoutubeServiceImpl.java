@@ -92,7 +92,7 @@ public class YoutubeServiceImpl implements YoutubeService {
     List<Map<String, Object>> internalContents = (List<Map<String, Object>>) sectionListRenderer
         .getOrDefault(YoutubeConstants.YT_PAYLOAD_CONTENTS, Collections.emptyList());
     if (!internalContents.isEmpty()) {
-      Map<String, Object> channelContent = internalContents.get(0);
+      Map<String, Object> channelContent = internalContents.getFirst();
       Map<String, Object> itemSectionRenderer = (Map<String, Object>) channelContent
           .getOrDefault(YoutubeConstants.YT_PAYLOAD_ITEM_SR, Collections.emptyMap());
       List<Map<String, Object>> internalContents2 = (List<Map<String, Object>>) itemSectionRenderer
@@ -145,7 +145,7 @@ public class YoutubeServiceImpl implements YoutubeService {
               .getOrDefault(YoutubeConstants.YT_PAYLOAD_SIMPLE_TEXT, YoutubeConstants.EMPTY));
       if (!runs.isEmpty()) {
         info.setVideoName(
-            (String) runs.get(0)
+            (String) runs.getFirst()
                 .getOrDefault(YoutubeConstants.YT_PAYLOAD_TEXT, YoutubeConstants.EMPTY));
       }
       infoList.add(info);

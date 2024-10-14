@@ -7,7 +7,7 @@ import static org.mockito.BDDMockito.willThrow;
 import static org.mockito.Mockito.spy;
 
 import com.gsdd.scrapper.properties.MediaProperties;
-import com.gsdd.scrapper.services.AnimeflvService;
+import com.gsdd.scrapper.services.AnimeFlvService;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import org.jsoup.Connection;
@@ -23,7 +23,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.StreamUtils;
 
 @ExtendWith(MockitoExtension.class)
-class AnimeflvServiceImplTest {
+class AnimeFlvServiceImplTest {
 
   private static final String MOCK_URL = "http://dummy-page.net";
   private static final String MOCK_BASIC_HTML = "<html><body><h1>Mocked HTML</h1></body></html>";
@@ -31,7 +31,7 @@ class AnimeflvServiceImplTest {
   private MediaProperties mediaProperties;
   @Mock
   private Connection connection;
-  private AnimeflvService service;
+  private AnimeFlvService service;
 
   @BeforeEach
   void setUp() {
@@ -66,8 +66,8 @@ class AnimeflvServiceImplTest {
     Assertions.assertNotNull(result);
     Assertions.assertEquals(21, result.size());
     Assertions.assertAll(
-        () -> Assertions.assertEquals("Anime", result.get(0).getType()),
-        () -> Assertions.assertEquals("One Piece", result.get(0).getName()));
+        () -> Assertions.assertEquals("Anime", result.getFirst().getType()),
+        () -> Assertions.assertEquals("One Piece", result.getFirst().getName()));
   }
 
   @Test
@@ -77,7 +77,7 @@ class AnimeflvServiceImplTest {
     Assertions.assertEquals(20, result.size());
     Assertions.assertAll(
         () -> Assertions.assertEquals("Suki na Ko ga Megane wo Wasureta", result.get(0).getName()),
-        () -> Assertions.assertEquals("Episodio 1", result.get(0).getEpisode()));
+        () -> Assertions.assertEquals("Episodio 1", result.getFirst().getEpisode()));
   }
 
   @Test
@@ -87,8 +87,8 @@ class AnimeflvServiceImplTest {
     Assertions.assertEquals(24, result.size());
     Assertions.assertAll(
         () -> Assertions.assertEquals("Suki na Ko ga Megane wo Wasureta", result.get(0).getName()),
-        () -> Assertions.assertEquals("Anime", result.get(0).getType()),
-        () -> Assertions.assertEquals("4.4", result.get(0).getRate()));
+        () -> Assertions.assertEquals("Anime", result.getFirst().getType()),
+        () -> Assertions.assertEquals("4.4", result.getFirst().getRate()));
   }
 
   private Document readFlvDocument() throws IOException {
