@@ -41,8 +41,11 @@ public class AnimePlanetServiceImpl implements AnimePlanetService {
     Document doc = null;
     try {
       doc = connection.url(url + "all")
-          .headers(ScrapperConstants.BASIC_HTTP_HEADERS)
+          .headers(ScrapperConstants.BASIC_HTTP_HEADERS_AP)
           .userAgent(ScrapperConstants.MOZILLA)
+          .referrer(ScrapperConstants.REFERRER)
+          .ignoreHttpErrors(true)
+          .followRedirects(true)
           .get();
       log.info("doc main: {}", doc);
     } catch (IOException e) {
@@ -63,8 +66,9 @@ public class AnimePlanetServiceImpl implements AnimePlanetService {
           .data(AnimePlanetConstants.QUERY_PAGE, String.valueOf(page))
           .data(AnimePlanetConstants.QUERY_ORDER, AnimePlanetConstants.QUERY_ORDER_VALUE)
           .data(AnimePlanetConstants.QUERY_SORT, AnimePlanetConstants.QUERY_SORT_VALUE)
-          .headers(ScrapperConstants.BASIC_HTTP_HEADERS)
+          .headers(ScrapperConstants.BASIC_HTTP_HEADERS_AP)
           .userAgent(ScrapperConstants.MOZILLA)
+          .referrer(ScrapperConstants.REFERRER)
           .get();
       log.info("doc: {}", doc);
     } catch (IOException e) {
@@ -153,8 +157,9 @@ public class AnimePlanetServiceImpl implements AnimePlanetService {
     try {
       log.debug("Fetching url -> {}", url + name);
       doc = connection.url(url + name)
-          .headers(ScrapperConstants.BASIC_HTTP_HEADERS)
+          .headers(ScrapperConstants.BASIC_HTTP_HEADERS_AP)
           .userAgent(ScrapperConstants.MOZILLA)
+          .referrer(ScrapperConstants.REFERRER)
           .get();
       log.info("doc: {}", doc);
     } catch (IOException e) {
@@ -175,7 +180,7 @@ public class AnimePlanetServiceImpl implements AnimePlanetService {
             e -> iterateDocInfo(
                 e.getElementsByClass(AnimePlanetConstants.NODE_INFO).stream().toList(),
                 builder));
-    var tags = doc.getElementsByClass(AnimePlanetConstants.TAGS)
+    List<String> tags = doc.getElementsByClass(AnimePlanetConstants.TAGS)
         .stream()
         .flatMap(element -> element.select(AnimePlanetConstants.NODE_LIST).stream())
         .map(e -> e.ownText().trim())
@@ -225,7 +230,7 @@ public class AnimePlanetServiceImpl implements AnimePlanetService {
   }
 
   private void assignStudioData(Element e, AnimeInfo.AnimeInfoBuilder builder) {
-    var studios = e.select(AnimePlanetConstants.A_HREF)
+    List<String> studios = e.select(AnimePlanetConstants.A_HREF)
         .stream()
         .map(studioElement -> studioElement.ownText().trim())
         .toList();

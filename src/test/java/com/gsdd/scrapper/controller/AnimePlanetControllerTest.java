@@ -18,8 +18,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,7 +29,7 @@ class AnimePlanetControllerTest {
   private static final String MOCK_NAME = "One Piece";
   @Autowired
   private MockMvc mvc;
-  @MockBean
+  @MockitoBean
   private AnimePlanetService animePlanetService;
 
   @Test

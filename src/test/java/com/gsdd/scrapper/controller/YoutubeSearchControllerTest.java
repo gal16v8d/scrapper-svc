@@ -17,8 +17,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,7 +29,7 @@ class YoutubeSearchControllerTest {
   private static final String MOCK_VIEW = "32,946,958";
   @Autowired
   private MockMvc mvc;
-  @MockBean
+  @MockitoBean
   private YoutubeService youtubeService;
 
   @Test
@@ -42,9 +42,7 @@ class YoutubeSearchControllerTest {
                 .publishedTimeText("hace 6 años")
                 .lengthText("")
                 .viewCountText(MOCK_VIEW)
-                .build()))
-        .given(youtubeService)
-        .getLatestInfo(any());
+                .build())).given(youtubeService).getLatestInfo(any());
     mvc.perform(get("/api/yt/search/Rayani").contentType(MediaType.APPLICATION_JSON_VALUE))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -60,7 +58,7 @@ class YoutubeSearchControllerTest {
     mvc.perform(get("/api/yt/search/Rayani").contentType(MediaType.APPLICATION_JSON_VALUE))
         .andExpect(status().isNotFound());
   }
-  
+
   @Test
   void testGetLatestInfoEmptyNotFound(@Mock Document doc) throws Exception {
     willReturn(doc).given(youtubeService).getPageInfo(any());

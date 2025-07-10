@@ -42,6 +42,7 @@ public class YoutubeServiceImpl implements YoutubeService {
           .data(YoutubeConstants.SEARCH_QUERY, keyword)
           .headers(ScrapperConstants.BASIC_HTTP_HEADERS)
           .userAgent(ScrapperConstants.MOZILLA)
+          .referrer(ScrapperConstants.REFERRER)
           .get();
       log.info("doc: {}", doc);
     } catch (IOException e) {
@@ -79,60 +80,64 @@ public class YoutubeServiceImpl implements YoutubeService {
   }
 
   @SuppressWarnings("unchecked")
+  private Map<String, Object> safeExtractMap(Map<String, Object> map, String key) {
+    return (Map<String, Object>) map.getOrDefault(key, Collections.emptyMap());
+  }
+
+  @SuppressWarnings("unchecked")
+  private List<Map<String, Object>> safeExtractList(Map<String, Object> map, String key) {
+    return (List<Map<String, Object>>) map.getOrDefault(key, Collections.emptyList());
+  }
+
   private List<YoutubeInfo> getLatestVideos(Map<String, Object> dataMap) {
     List<YoutubeInfo> latestVideos = new ArrayList<>();
-    Map<String, Object> contents = (Map<String, Object>) dataMap
-        .getOrDefault(YoutubeConstants.YT_PAYLOAD_CONTENTS, Collections.emptyMap());
-    Map<String, Object> twoColumnSearchResultsRenderer = (Map<String, Object>) contents
-        .getOrDefault(YoutubeConstants.YT_PAYLOAD_TWO_COL_SRR, Collections.emptyMap());
-    Map<String, Object> primaryContents = (Map<String, Object>) twoColumnSearchResultsRenderer
-        .getOrDefault(YoutubeConstants.YT_PAYLOAD_PRIMARY_C, Collections.emptyMap());
-    Map<String, Object> sectionListRenderer = (Map<String, Object>) primaryContents
-        .getOrDefault(YoutubeConstants.YT_PAYLOAD_SECTION_LR, Collections.emptyMap());
-    List<Map<String, Object>> internalContents = (List<Map<String, Object>>) sectionListRenderer
-        .getOrDefault(YoutubeConstants.YT_PAYLOAD_CONTENTS, Collections.emptyList());
+    Map<String, Object> contents = safeExtractMap(dataMap, YoutubeConstants.YT_PAYLOAD_CONTENTS);
+    Map<String, Object> twoColumnSearchResultsRenderer =
+        safeExtractMap(contents, YoutubeConstants.YT_PAYLOAD_TWO_COL_SRR);
+    Map<String, Object> primaryContents =
+        safeExtractMap(twoColumnSearchResultsRenderer, YoutubeConstants.YT_PAYLOAD_PRIMARY_C);
+    Map<String, Object> sectionListRenderer =
+        safeExtractMap(primaryContents, YoutubeConstants.YT_PAYLOAD_SECTION_LR);
+    List<Map<String, Object>> internalContents =
+        safeExtractList(sectionListRenderer, YoutubeConstants.YT_PAYLOAD_CONTENTS);
     if (!internalContents.isEmpty()) {
       Map<String, Object> channelContent = internalContents.getFirst();
-      Map<String, Object> itemSectionRenderer = (Map<String, Object>) channelContent
-          .getOrDefault(YoutubeConstants.YT_PAYLOAD_ITEM_SR, Collections.emptyMap());
-      List<Map<String, Object>> internalContents2 = (List<Map<String, Object>>) itemSectionRenderer
-          .getOrDefault(YoutubeConstants.YT_PAYLOAD_CONTENTS, Collections.emptyList());
+      Map<String, Object> itemSectionRenderer =
+          safeExtractMap(channelContent, YoutubeConstants.YT_PAYLOAD_ITEM_SR);
+      List<Map<String, Object>> internalContents2 =
+          safeExtractList(itemSectionRenderer, YoutubeConstants.YT_PAYLOAD_CONTENTS);
       if (!internalContents2.isEmpty()) {
         Map<String,
             Object> mainContent = internalContents2.stream()
                 .filter(map -> map.containsKey(YoutubeConstants.YT_PAYLOAD_SHELF_R))
                 .findFirst()
                 .orElseGet(Collections::emptyMap);
-        Map<String, Object> shelfRenderer = (Map<String, Object>) mainContent
-            .getOrDefault(YoutubeConstants.YT_PAYLOAD_SHELF_R, Collections.emptyMap());
-        Map<String, Object> content = (Map<String, Object>) shelfRenderer
-            .getOrDefault(YoutubeConstants.YT_PAYLOAD_CONTENT, Collections.emptyMap());
-        Map<String, Object> verticalListRenderer = (Map<String, Object>) content
-            .getOrDefault(YoutubeConstants.YT_PAYLOAD_VERTICAL_LR, Collections.emptyMap());
-        List<Map<String, Object>> items = (List<Map<String, Object>>) verticalListRenderer
-            .getOrDefault(YoutubeConstants.YT_PAYLOAD_ITEMS, Collections.emptyList());
+        Map<String, Object> shelfRenderer =
+            safeExtractMap(mainContent, YoutubeConstants.YT_PAYLOAD_SHELF_R);
+        Map<String, Object> content =
+            safeExtractMap(shelfRenderer, YoutubeConstants.YT_PAYLOAD_CONTENT);
+        Map<String, Object> verticalListRenderer =
+            safeExtractMap(content, YoutubeConstants.YT_PAYLOAD_VERTICAL_LR);
+        List<Map<String, Object>> items =
+            safeExtractList(verticalListRenderer, YoutubeConstants.YT_PAYLOAD_ITEMS);
         latestVideos = extractDataFromItem(items);
       }
     }
     return latestVideos;
   }
 
-  @SuppressWarnings("unchecked")
   private List<YoutubeInfo> extractDataFromItem(List<Map<String, Object>> items) {
     List<YoutubeInfo> infoList = new ArrayList<>();
     for (Map<String, Object> item : items) {
-      Map<String, Object> videoRenderer = (Map<String, Object>) item
-          .getOrDefault(YoutubeConstants.YT_PAYLOAD_VIDEO_R, Collections.emptyMap());
-      Map<String, Object> title = (Map<String, Object>) videoRenderer
-          .getOrDefault(YoutubeConstants.YT_PAYLOAD_TITLE, Collections.emptyMap());
-      Map<String, Object> publishedTimeText = (Map<String, Object>) videoRenderer
-          .getOrDefault(YoutubeConstants.YT_PAYLOAD_PUBLISHED_TIME_TEXT, Collections.emptyMap());
-      Map<String, Object> lengthText = (Map<String, Object>) videoRenderer
-          .getOrDefault(YoutubeConstants.YT_PAYLOAD_LENGTH_T, Collections.emptyMap());
-      Map<String, Object> viewCountText = (Map<String, Object>) videoRenderer
-          .getOrDefault(YoutubeConstants.YT_PAYLOAD_VIEW_COUNT_T, Collections.emptyMap());
-      List<Map<String, Object>> runs = (List<Map<String, Object>>) title
-          .getOrDefault(YoutubeConstants.YT_PAYLOAD_RUNS, Collections.emptyList());
+      Map<String, Object> videoRenderer = safeExtractMap(item, YoutubeConstants.YT_PAYLOAD_VIDEO_R);
+      Map<String, Object> title = safeExtractMap(videoRenderer, YoutubeConstants.YT_PAYLOAD_TITLE);
+      Map<String, Object> publishedTimeText =
+          safeExtractMap(videoRenderer, YoutubeConstants.YT_PAYLOAD_PUBLISHED_TIME_TEXT);
+      Map<String, Object> lengthText =
+          safeExtractMap(videoRenderer, YoutubeConstants.YT_PAYLOAD_LENGTH_T);
+      Map<String, Object> viewCountText =
+          safeExtractMap(videoRenderer, YoutubeConstants.YT_PAYLOAD_VIEW_COUNT_T);
+      List<Map<String, Object>> runs = safeExtractList(title, YoutubeConstants.YT_PAYLOAD_RUNS);
       YoutubeInfo info = new YoutubeInfo();
       info.setLengthText(
           (String) lengthText

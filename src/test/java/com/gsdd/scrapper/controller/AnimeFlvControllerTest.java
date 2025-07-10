@@ -19,8 +19,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,7 +33,7 @@ class AnimeFlvControllerTest {
   private static final String MOCK_TYPE = "Anime";
   @Autowired
   private MockMvc mvc;
-  @MockBean
+  @MockitoBean
   private AnimeFlvService animeflvService;
 
   @Test
@@ -41,8 +41,8 @@ class AnimeFlvControllerTest {
     willReturn(doc).given(animeflvService).getPageInfo();
     willReturn(
         List.of(LatestAdds.builder().name(MOCK_NAME).type(MOCK_TYPE).rate(MOCK_RATE).build()))
-        .given(animeflvService)
-        .getLatestAdds(any());
+            .given(animeflvService)
+            .getLatestAdds(any());
     mvc.perform(get("/api/flv/search/added").contentType(MediaType.APPLICATION_JSON_VALUE))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -56,8 +56,8 @@ class AnimeFlvControllerTest {
     willReturn(doc).given(animeflvService).getPageInfo();
     willReturn(
         List.of(DetailedLatestReleases.builder().name(MOCK_NAME).episode(MOCK_EPISODE).build()))
-        .given(animeflvService)
-        .getDetailedLatestReleases(any());
+            .given(animeflvService)
+            .getDetailedLatestReleases(any());
     mvc.perform(get("/api/flv/search/detailed").contentType(MediaType.APPLICATION_JSON_VALUE))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))

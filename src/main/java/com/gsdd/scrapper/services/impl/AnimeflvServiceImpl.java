@@ -34,6 +34,7 @@ public class AnimeflvServiceImpl implements AnimeFlvService {
       doc = connection.url(url)
           .headers(ScrapperConstants.BASIC_HTTP_HEADERS)
           .userAgent(ScrapperConstants.MOZILLA)
+          .referrer(ScrapperConstants.REFERRER)
           .get();
       log.info("doc: {}", doc);
     } catch (IOException e) {
